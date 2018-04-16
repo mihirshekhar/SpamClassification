@@ -1,4 +1,4 @@
-# SpamClassification
+
 # Dataset Description
 We have used two datasets from Enron complete dataset,  enron1 and enron2 to generate our results. 
 The dataset can be downloaded from  http://nlp.cs.aueb.gr/software_and_datasets/Enron-Spam/index.html.  
