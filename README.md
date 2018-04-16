@@ -5,8 +5,8 @@ The dataset can be downloaded from  http://nlp.cs.aueb.gr/software_and_datasets/
 enron1 : It contains 1500 soam email and 3672 non spam email. It is used to train and build our model.
 5-fold Cross validation over this dataset is used to compare results.     
 enron2: It contains 1496 spam emails with 4361 non spam emails. I have used this dataset to show the result of model trained over 
-enron1 and is shown in the section Robustness results. 
-
+enron1 and is shown in the section Robustness results.   
+enron-complete-dataset: It is a combination of all enron datasets, enron1 to enron6. We use this dataset, to effciency of  neural network approach in large data scenario. 
 
 ## NativeClassification.ipynb
 This file shows experiment  with three algorithms : SVM, Naive Bayes and Gradient Boosted Classifier. 
@@ -50,19 +50,35 @@ F1 score  for SVM model was 0.991
 F1 score  for  Naive Baye model was 0.975  
 This shows  that the  model is optimally trained (not overfit or underfit) and robust. 
 
+## NeuralNetwork.ipynb
+This file shows experiment with a deep neural network.    
 
+#### Neural Network Architecture 
+We used a 5 layer deep architecture, build with dense layers for training our model.
+The number of epoch was set to 200 and learning rate was 1e-3.
+We used the pretrained google word2vec (https://drive.google.com/file/d/0B7XkCwpI5KDYNlNUTTlSS21pQmM/edit  ) model.
+It includes word vectors for a vocabulary of 3 million words and phrases that they trained on roughly 100 billion words from a Google News dataset.  
+First, we generate a document model for each file, taking average of word2vec word vectors.   
+We train our neural network architecture on these document features.  
 
+### Results
+We experimented with three, four, five and ix layer   architecture to choose the most suitable architecture. 
 
+|          | CrossValidation Results(enron1) | Robustness Results(enron2) |
+|----------|---------------------------------|----------------------------|
+| 3-layer  | 0.9565                          | 0.807                       |
+| 4-layer  | 0.9644                          | 0.8108                     |
+| 5-layer  | 0.9644                          | 0.833                     |  
+| 6-layer  | 0.9602                          | 0.814                      |  
 
+It can be observed that with 4-layer, 5 layer and 6th layer higher robustness results are approx same with 5 layer architecture showing best result. Scores  of three layered architecture suggests underfitting.   
+Hence, I have used 5 layer architecture.
 
+Comparing with other techniques, SVM and Naive Bayes, the score is low. The reason can be attributed to two factors:  
+1) Low data : Deep neural Techniques require a large amount of data, as it learns all the features themselves. We experimented by changing the input data by repalcing enron1 by  a combination of all files in enron1 to enron6.     We obtained a cross validated f1-score of  0.9864 on this dataset.
 
-
-
-
-
-
-
-
+2) Poor document vector: The sparsity of data in neural network is handled by utilising features, that correlates the relationship we are trying to model. We tried using doc2vec for document feature generation. However, I was unable to train the model on enron dataset due to relatively high time and memory constraint associated.
+ 
 
 # Installation
 All the the files are jupyter notebook files and needs to be opened in Jupyter notebook with listed packages installed.
@@ -80,6 +96,26 @@ numpy
 matplotlib  
 sklearn  
 pandas  
+
+## NeuralNetwork.ipynb
+This file contains code for classifying email into spam or not using Neural Network.  
+**pretrained_emb**: Path to pretrained google word2vec embedding.     
+**input_data_folder** : path to folder for training and crossvalidation results (with subdirectories as spam and ham containing files).   
+**different_data_folder**= path to folder for testing robustness other than enron input_data_folder (with subdirectories as spam and ham containing files).    
+**input_pkl** : path to folder for keeping pkl file of input_data_folder.   
+**different_pkl** : path to folder for keeping pkl file of different_data_folder.   
+For running the training and test, just open the file in jupyter notebook and  provide path to these two directories.     
+
+### Prerequisites   
+numpy  
+matplotlib  
+sklearn  
+pandas  
+gensim  
+theano  
+keras  
+nltk  
+
 
 
 
