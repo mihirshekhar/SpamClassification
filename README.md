@@ -14,7 +14,7 @@ SVM with best average f1 score of  0.981  is best performer followed by Naive Ba
 with best average f1 score of 0.959.    
 Gradient Boosted Classifier turned out to be  slow and hence results are not included.   
 
-### Naive Bayes (Results and Feature Selection)
+#### Naive Bayes (Results and Feature Selection)
 The reason for chosing Naive Bayes is that   a large part of keyword terms in spam and not_spam are different). Also Naive Bayes provides a baseline to compare other algorithms performance.   
 All the results are calculated using enron1 as training dataset. 
 Experimented with several features. All the F1 scores are calculated using five fold crossvalidation over training data (enron1)  
@@ -45,7 +45,7 @@ Stemming and tokenization using nltk in count vectorizer is slow and thus discar
 Using Bigram and higher order of n-grams along with unigram was performing poorly  and slow as compared to unigrams only.   
 
 ### Robustness Results
-Tsted Naive Bayes and SVM model trained over enron1 dataset to generate output for enron2 dataset.  
+Tested Naive Bayes and SVM model trained over enron1 dataset to generate output for enron2 dataset.  
 F1 score  for SVM model was 0.991  
 F1 score  for  Naive Baye model was 0.975  
 This shows  that the  model is optimally trained (not overfit or underfit) and robust. 
@@ -70,7 +70,7 @@ Python version is 2.7
 ## NaiveClassification.ipynb
 This file contains code for classifying email into spam or not using **SVM** and **Naive Bayes**  
 **input_data_folder** : path to folder for training and crossvalidation results (with subdirectories as spam and ham containing files). 
-**different_data_folder**= path to folder for testing robustness (with subdirectories as spam and ham containing files).      
+**different_data_folder**= path to folder for testing robustness other than enron input_data_folder (with subdirectories as spam and ham containing files).   
 For running the training and test, just open the file in jupyter notebook and  provide path to these two directories.   
 
 ### Prerequisites
