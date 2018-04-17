@@ -1,40 +1,46 @@
 
 # Dataset Description
-We have used two datasets from Enron complete dataset,  enron1 and enron2 to generate our results. 
+I have used two datasets from Enron complete dataset,  enron1 and enron2 to generate the results. 
 The dataset can be downloaded from  http://nlp.cs.aueb.gr/software_and_datasets/Enron-Spam/index.html.  
-enron1 : It contains 1500 soam email and 3672 non spam email. It is used to train and build our model.
-5-fold Cross validation over this dataset is used to compare results.     
+enron1 : It contains 1500 spam email and 3672 non spam email. It is used to train and build our model.
+We have used 5-fold cross validation to generate results.     
 enron2: It contains 1496 spam emails with 4361 non spam emails. I have used this dataset to show the result of model trained over 
-enron1 and is shown in the section Robustness results.   
-enron-complete-dataset: It is a combination of all enron datasets, enron1 to enron6. We use this dataset, to effciency of  neural network approach in large data scenario. 
+enron1. I call it as robustness results.   
+enron-complete-dataset: It is a combination of all enron datasets, enron1 to enron6. We use this dataset, to show effciency of  neural network approach in large data scenario. 
 
 ## NativeClassification.ipynb
 This file shows experiment  with three algorithms : SVM, Naive Bayes and Gradient Boosted Classifier. 
 SVM with best average f1 score of  0.981  is best performer followed by Naive Bayes  
 with best average f1 score of 0.959.    
-Gradient Boosted Classifier turned out to be  slow and hence results are not included.   
+Gradient Boosted Classifier was limited by time and memory constraints(very slow) and hence results are not included.   
 
 #### Naive Bayes (Results and Feature Selection)
-The reason for chosing Naive Bayes is that   a large part of keyword terms in spam and not_spam are different). Also Naive Bayes provides a baseline to compare other algorithms performance.   
+The reason for choosing Naive Bayes is that   a large part of keyword terms in spam and not_spam are different. Also Naive Bayes provides a baseline to compare other algorithms performance.   
 All the results are calculated using enron1 as training dataset. 
-Experimented with several features. All the F1 scores are calculated using five fold crossvalidation over training data (enron1)  
-1: Plain Naive Bayes : Average F1 score : 725   
-followed by Stopword removal : Average F1 score   0.845  
-followed by  Setting fit_prior True : Average F1 score 0.8599  
-followed by Removing all words with count less than 2 : Average F1 score 0.9341  
-followed by setting alpha parameter 0.05: Averge F1 score : 0.959  
+Experimented with several features. All the F1 scores are calculated using five fold crossvalidation over training data (enron1).
+The below table shows effect of features and parameter selection on classification. 
 
-This setting was used for comparing result of Naive Bayes with other algorithm. 
+|                                                                                            | Average F1 score - 5 cross validation |
+|--------------------------------------------------------------------------------------------|-----------------------------------------|
+| Vanilla                                                                                    | 0.725                                   |
+| Stopword removal                                                                           | 0.845                                   |
+| Setting prior + Stopword removal                                                           | 0.899                                   |
+| Removing all words with count <2+Setting prior + Stopword removal                          | 0.9341                                  |
+| choosing best parameter+ Removing all words with count <2+Setting prior + Stopword removal | 0.959                                   |
+The best setting was used for comparing result of Naive Bayes with other algorithm. 
 
-#### SVM 
+#### SVM we have used 
 High dimensional nature of this problem coupled  with effciency of SVM in such a scenario, led me to explore SVM. 
-1: Plain SVM with stopword removal and removal of terms having count less than 2 :Average F1 score  0.951    
-2: SVM with alpha tuning equal to 5e-4 :   Average F1 score 0.981    
+The below table shows effect of features and parameter selection on classification.It can be observed we have used best parameter settings learnt from Naive Bayes.
+
+|                                                                                     | Average F1 score - 5 - cross validation |
+|-------------------------------------------------------------------------------------|-----------------------------------------|
+| Stopword Removal+ aremoving all terms with less than 2 frequency                    | 0.951                                   |
+| Stopword Removal+ aremoving all terms with less than 2 frequency + parameter tuning | 0.981                                   |
     
-We utlised various settings of optimum Naive Bayes, as features were already explored.   
 
 #### Gradient Boosted Classifier
-SVM and Naive Bayes represent discriminative and generative classiiers. I wanted to exlore the efficacy of decision trees in this scenario. Hence, used Gradient Boosted Classifier. Unfortuately, the performance of Gradient Boosted Tree was very slow owing to conversion from spare to dense format and hence its results are not included. 
+SVM and Naive Bayes represent discriminative and generative classiiers. I wanted to exlore the efficacy of decision trees in this scenario. Hence, used Gradient Boosted Classifier. Unfortuately, the performance of Gradient Boosted Tree was severely limited by time and memory constraints and  hence its results are not included. 
 
 
 ### Observation  (Parameter Tuning )
@@ -46,12 +52,12 @@ Using Bigram and higher order of n-grams along with unigram was performing poorl
 
 ### Robustness Results
 Tested Naive Bayes and SVM model trained over enron1 dataset to generate output for enron2 dataset.  
-F1 score  for SVM model was 0.991  
-F1 score  for  Naive Baye model was 0.975  
-This shows  that the  model is optimally trained (not overfit or underfit) and robust. 
+Best F1 score  for SVM model was 0.991  
+Best F1 score  for  Naive Baye model was 0.975  
+This shows  that the  model is optimally trained (not overfit or underfit). 
 
 ## NeuralNetwork.ipynb
-This file shows experiment with a deep neural network.    
+This file shows experiment with a deep neural network.     
 
 #### Neural Network Architecture 
 We used a 5 layer deep architecture, build with dense layers for training our model.
@@ -102,7 +108,7 @@ This file contains code for classifying email into spam or not using Neural Netw
 **pretrained_emb**: Path to pretrained google word2vec embedding.     
 **input_data_folder** : path to folder for training and crossvalidation results (with subdirectories as spam and ham containing files).   
 **different_data_folder**= path to folder for testing robustness other than enron input_data_folder (with subdirectories as spam and ham containing files).    
-**input_pkl** : path to folder for keeping pkl file of input_data_folder.   
+**input_pkl** : path to folder for keeping pkl file of input_data_folder (saving of model saves time required in loading word2vec model which is large).   
 **different_pkl** : path to folder for keeping pkl file of different_data_folder.   
 For running the training and test, just open the file in jupyter notebook and  provide path to these two directories.     
 
