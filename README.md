@@ -35,8 +35,8 @@ The below table shows effect of features and parameter selection on classificati
 
 |                                                                                     | Average F1 score - 5 - cross validation |
 |-------------------------------------------------------------------------------------|-----------------------------------------|
-| Stopword Removal+ aremoving all terms with less than 2 frequency                    | 0.951                                   |
-| Stopword Removal+ aremoving all terms with less than 2 frequency + parameter tuning | 0.981                                   |
+| Stopword Removal+ removing all terms with less than 2 frequency                    | 0.951                                   |
+| Stopword Removal+ removing all terms with less than 2 frequency + parameter tuning | 0.981                                   |
     
 
 #### Gradient Boosted Classifier
